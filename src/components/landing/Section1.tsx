@@ -16,7 +16,7 @@ const Section1 = () => {
           "Everyone should have the opportunity to do dignified work in a supportive environment. Our sewing center is not just a job, but a community of women who care for one another and are passionate about their craft.",
           "Jyoti employs women who are overcoming physical disability or socio-economic disadvantage. Employees are empowered with a living wage, maternity leave, childcare, and counseling resources.",
         ]}
-        buttonText="Learn More"
+        buttonText={["Learn More"]}
         imageSrc="/section1.jpg"
         imageAlt="Sewing center"
       />
@@ -27,7 +27,7 @@ const Section1 = () => {
             "Our seamstresses and weavers create a range of sustainable products.",
             "We sell individual and bulk orders of ready-to-order products as well as custom designs and custom printing.",
           ]}
-          buttonText="Make an order"
+          buttonText={["Make an order"]}
           imageSrc="/section2.jpg"
           imageAlt="Custom products"
           reverse
@@ -42,21 +42,29 @@ export default Section1
 interface StorySectionProps {
   title: string;
   paragraphs: string[];
-  buttonText: string;
+  buttonText?: string[];
+  buttonLogo?: React.ReactNode[];
   imageSrc: string;
   imageAlt: string;
   reverse?: boolean;
+  imageBtn?:string;
 
 }
 
-const StorySection: React.FC<StorySectionProps> = ({
+export const StorySection: React.FC<StorySectionProps> = ({
   title,
   paragraphs,
   buttonText,
   imageSrc,
   imageAlt,
+  buttonLogo,
+  imageBtn,
   reverse = false,
 }) => {
+
+  const buttonTexts = Array.isArray(buttonText) ? buttonText : buttonText ? [buttonText] : [];
+  const buttonLogos = Array.isArray(buttonLogo) ? buttonLogo : buttonLogo ? [buttonLogo] : [];
+
   return (
     <HeroWrapper
       className={`flex flex-col ${
@@ -72,25 +80,22 @@ const StorySection: React.FC<StorySectionProps> = ({
             <p key={i}>{p}</p>
           ))}
         </div>
-        {
-          !reverse ? (
+        {buttonTexts.length > 0 && buttonTexts.map((text, index) => {
+          const bgColor = index % 2 === 0 ? 'bg-[#E8D5A0]' : 'bg-[#F7F6F3]';
+          const textColor = !reverse ? 'text-[#2B2B2B]' : 'bg-[#CE9F41] text-white';
+
+          return (
             <Button
+              key={index}
               variant="outline"
               size="lg"
-              className="mt-8 rounded-[8px] px-6 py-4 border border-[#D5D5D5] bg-[#E8D5A0] text-[#2B2B2B]"
+              className={`mt-8 mr-4 rounded-[8px] px-6 py-4 border border-[#D5D5D5] ${bgColor} ${textColor}`}
             >
-              {buttonText}
+              {buttonLogos[index]} {text}
             </Button>
-          ) : (
-            <Button
-              variant="outline"
-              size="lg"
-              className="mt-8 rounded-[8px] px-6 py-4 border border-[#D5D5D5] bg-[#CE9F41] text-white"
-            >
-              {buttonText}
-            </Button>
-          )
-        }
+          );
+        })}
+
       </div>
 
       {/* Image Block */}
@@ -102,6 +107,17 @@ const StorySection: React.FC<StorySectionProps> = ({
             fill
             className="rounded-[10px] object-cover"
           />
+          {imageBtn && 
+          <div className="absolute bottom-4 right-4">
+            <Button
+              variant="outline"
+              size="lg"
+              className="max-w-3xs rounded-md p-4 border border-[#D5D5D5] bg-[#FFF5DD] text-[#2B2B2B]"
+            >
+              {imageBtn}
+            </Button>
+          </div>
+          }
         </div>
       </div>
     </HeroWrapper>

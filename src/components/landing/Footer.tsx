@@ -6,6 +6,7 @@ import Mail from "@/images/mail.svg"
 import Phone from "@/images/phone.svg"
 import Location from "@/images/location1.svg"
 import { Button } from "../ui/button"
+import Link from "next/link"
 
 const Footer = () => {
   return (
@@ -28,14 +29,14 @@ const Footer = () => {
 
                 <div className="text-[#F7F6F3] space-y-2 text-lg">
                     <h4 className="text-xl md:text-[28px]">Quick Links</h4>
-                    <p>About Us</p>
-                    <p>Blog</p>
-                    <p>Our Team</p>
+                    <Link href={"/about"}><p>About Us</p></Link>
+                    <Link href={"/"}><p>Blog</p></Link>
+                    <Link href={"/"}><p>Our Team</p></Link>
                 </div>
 
                 <div className="text-[#F7F6F3] space-y-2 text-lg">
                     <h4 className="text-xl md:text-[28px]">For Business</h4>
-                    <p>Our Products</p>
+                    <Link href={"/product"}><p>Our Products</p></Link>
                     <p>For Brands</p>
                     <p>FAQ</p>
                     <p>Contact</p>
