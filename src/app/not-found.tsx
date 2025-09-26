@@ -1,7 +1,6 @@
 import React from 'react';
 import Not from '@/images/404one.svg';
 import Not1 from "@/images/404two.svg"
-import F404 from "@/images/404.svg"
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 

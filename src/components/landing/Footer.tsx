@@ -5,7 +5,6 @@ import Fb from "@/images/fb.svg"
 import Mail from "@/images/mail.svg"
 import Phone from "@/images/phone.svg"
 import Location from "@/images/location1.svg"
-import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 
 const Footer = () => {
