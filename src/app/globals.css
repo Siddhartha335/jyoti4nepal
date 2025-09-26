@@ -156,3 +156,11 @@ p {
 .stories {
   box-shadow: 0px 2px 6px 0px #A46D2A3D;
 }
+
+.partner {
+  background: linear-gradient(180deg, #F5F5F2 0%, #FFFFFF 100%);
+}
+
+.services-shadow {
+  box-shadow: 0px 0px 6px 0px #0000000F;
+}

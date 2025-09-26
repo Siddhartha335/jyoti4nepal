@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -24,7 +25,7 @@ const HeroSection = () => {
       />
 
       {/* Content */}
-      <div className="absolute inset-0 z-10 flex items-center px-6 sm:px-10 md:px-16 lg:px-24">
+      <div className="absolute inset-0 z-10 flex mt-24 sm:mt-0 items-center-safe md:items-center px-6 sm:px-10 md:px-16 lg:px-24">
         <div className="max-w-3xl">
           <h4 className="font-semibold text-3xl sm:text-4xl md:text-5xl text-white mb-4 md:leading-[60px]">
             Empowering women through <br />
@@ -38,13 +39,15 @@ const HeroSection = () => {
 
           {/* ✅ Make buttons horizontal on all screen sizes */}
           <div className="flex gap-4 sm:gap-6">
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-[8px] px-6 py-4 text-white bg-[#CE9F41]"
-            >
-              Explore Products
-            </Button>
+            <Link href="/product">
+              <Button
+                  variant="outline"
+                  size="lg"
+                  className="rounded-[8px] px-6 py-4 text-white bg-[#CE9F41] cursor-pointer"
+                >
+                  Explore Products
+              </Button>
+            </Link>
             <Button
               variant="outline"
               size="lg"

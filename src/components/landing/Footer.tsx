@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <div className="bg-[#3B280D]">
         <WidthWrapper className="py-12">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-14 mb-5">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-8 lg:gap-14 mb-5">
                 <div className="space-y-[10px]">
                     <Image
                         src='/footer-logo.svg'
@@ -20,30 +20,32 @@ const Footer = () => {
                         width={240}
                         height={44}
                     />
-                    <p className="text-[#F7F6F3] text-lg">Creating meaningful employment for marginalized communities while producing sustainable, high-quality goods that honor both people and planet.</p>
+                    <p className="text-[#F7F6F3] text-base">Creating meaningful employment for marginalized communities while producing sustainable, high-quality goods that honor both people and planet.</p>
                     <div className="flex gap-3">
                         <Insta />
                         <Fb />
                     </div>
                 </div>
 
-                <div className="text-[#F7F6F3] space-y-2 text-lg">
+                <div className="text-[#F7F6F3] space-y-2 text-base">
                     <h4 className="text-xl md:text-[28px]">Quick Links</h4>
+                    <div className="border-t-2 -mt-1 w-24 sm:w-36" />
                     <Link href={"/about"}><p>About Us</p></Link>
                     <Link href={"/"}><p>Blog</p></Link>
                     <Link href={"/"}><p>Our Team</p></Link>
                 </div>
 
-                <div className="text-[#F7F6F3] space-y-2 text-lg">
+                <div className="text-[#F7F6F3] space-y-2 text-base">
                     <h4 className="text-xl md:text-[28px]">For Business</h4>
+                    <div className="border-t-2 -mt-1 w-28 sm:w-36" />
                     <Link href={"/product"}><p>Our Products</p></Link>
-                    <p>For Brands</p>
-                    <p>FAQ</p>
                     <p>Contact</p>
+                    <p>FAQ</p>
                 </div>
 
-                <div className="text-[#F7F6F3] space-y-3 text-lg">
+                <div className="text-[#F7F6F3] space-y-2 text-base">
                     <h4 className="text-xl md:text-[28px]">Stay Connected</h4>
+                    <div className="border-t-2 -mt-1 w-32 sm:w-46" />
                     <div className="flex gap-3 items-center">
                         <Mail />
                         <p>hello@gmail.com</p>
@@ -74,7 +76,7 @@ const Footer = () => {
                 </div>
             </div>
             <hr />
-            <div className="p-5 flex justify-between">
+            <div className="py-5 sm:p-5 flex justify-between">
                 <p className="text-[#FFFFFF] text-sm sm:text-base">© 2025 Jyoti. All rights reserved.</p>
                 <div className="text-[#F7F6F3] flex gap-5 text-sm sm:text-base">
                     <p>Terms of Service</p>

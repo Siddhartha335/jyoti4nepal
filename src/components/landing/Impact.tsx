@@ -63,7 +63,7 @@ const Impact = () => {
   };
 
   return (
-    <div className="mt-20 md:mt-40">
+    <div className="mt-20">
         <div className=" max-w-4xl mx-auto text-center mb-15 p-5">
             <h4 className="font-semibold text-[#2B2B2B] text-xl sm:text-2xl md:text-4xl leading-[48px] mb-2">Reducing the environmental impact of production</h4>
             <p className="text-lg leading-[28px]">We dream of a healthy Nepal, with smaller landfills, cleaner air, and the elimination of harmful chemicals. At Jyoti, we’re doing our part to show that it’s possible!</p>

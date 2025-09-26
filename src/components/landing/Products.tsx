@@ -1,6 +1,7 @@
 import HeroWrapper from "../HeroWrapper"
 import Image from "next/image"
 import { Button } from "../ui/button"
+import Link from "next/link"
 
 const Products = () => {
   return (
@@ -27,13 +28,15 @@ const Products = () => {
             ))}
         </div>
         <div className="flex justify-center">
-            <Button 
-                variant="outline"
-                size="lg"
-                className="mt-8 rounded-[8px] px-6 py-4 border border-[#D5D5D5] bg-[#CE9F41] text-white"
-            >
-                Explore all Products
-            </Button>
+            <Link href={"/product"}>
+                <Button 
+                    variant="outline"
+                    size="lg"
+                    className="mt-8 rounded-[8px] px-6 py-4 border border-[#D5D5D5] bg-[#CE9F41] text-white cursor-pointer"
+                >
+                    Explore all Products
+                </Button>
+            </Link>
         </div>
     </HeroWrapper>
   )
