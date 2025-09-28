@@ -15,7 +15,9 @@ const MobileNavbar = () => {
     <div className="relative z-50 bg-[#F3F3F2]">
       {/* Top Navbar */}
       <WidthWrapper className="flex items-center justify-between py-5">
-        <Image src="/logo.svg" alt="logo" width={180} height={36} />
+        <Link href={"/"}>
+          <Image src="/logo.svg" alt="logo" width={180} height={36} />
+        </Link>
         <button
           className="text-[#2B2B2B] focus:outline-none"
           onClick={() => setIsOpen(true)}

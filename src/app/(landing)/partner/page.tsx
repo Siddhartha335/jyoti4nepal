@@ -1,3 +1,5 @@
+'use client'
+
 import HeroWrapper from '@/components/HeroWrapper'
 import { StorySection } from '@/components/landing/Section1'
 import Manufacture from "@/images/manufacture.svg"
@@ -5,8 +7,75 @@ import Label from "@/images/label.svg"
 import Chain from "@/images/chain.svg"
 import Disc from "@/images/disc.svg"
 import { Button } from '@/components/ui/button'
+import { motion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const page = () => {
+gsap.registerPlugin(ScrollTrigger)
+
+const Page = () => {
+
+  const servicesRef = useRef<HTMLDivElement>(null)
+  const storiesRef = useRef<HTMLDivElement>(null)
+  const partnersRef = useRef<HTMLDivElement>(null)
+
+  // 🔥 GSAP animations
+  useEffect(() => {
+    if (servicesRef.current) {
+      gsap.fromTo(
+        servicesRef.current.querySelectorAll('.service-card'),
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: servicesRef.current,
+            start: 'top 85%',
+          }
+        }
+      )
+    }
+
+    if (storiesRef.current) {
+      gsap.fromTo(
+        storiesRef.current.querySelectorAll('.story-card'),
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: storiesRef.current,
+            start: 'top 85%',
+          }
+        }
+      )
+    }
+
+    if (partnersRef.current) {
+      gsap.fromTo(
+        partnersRef.current.querySelectorAll('.partner-step'),
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: partnersRef.current,
+            start: 'top 85%',
+          }
+        }
+      )
+    }
+  }, [])
 
   const services  = [
     {
@@ -33,7 +102,7 @@ const page = () => {
     },
     {
       icon: <Chain />,
-      title: "CSupply Chain Solutions",
+      title: "Supply Chain Solutions",
       description: "Complete supply chain management with transparency and traceability at every step",
       points:[
         'Supplier network',
@@ -108,15 +177,38 @@ const page = () => {
             imageAlt="Partners"  
         />
 
+        {/* Our Services */}
         <div className='partner -mt-10 mb-5'>
             <div className='text-[#2B2B2B] px-5 sm:px-0 text-center pt-15 mb-5'>
-                <h4 className='font-medium text-3xl md:text-4xl mb-3'>Our Services</h4>
-                <p className='text-lg max-w-4xl mx-auto'>Comprehensive manufacturing solutions designed to meet your brand&apos;s unique needs while maintaining our commitment to ethical production.</p>
+                <motion.h4 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7 }}
+                  viewport={{ once: true }}
+                  className='font-medium text-3xl md:text-4xl mb-3'
+                >
+                  Our Services
+                </motion.h4>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className='text-lg max-w-4xl mx-auto'
+                >
+                  Comprehensive manufacturing solutions designed to meet your brand&apos;s unique needs while maintaining our commitment to ethical production.
+                </motion.p>
             </div>
             <HeroWrapper>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div 
+                  ref={servicesRef}
+                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                >
                     {services.map((service, index) => (
-                      <div key={index} className='p-5 bg-[#F7F6F3] border border-[#EAEAEA] services-shadow rounded-md space-y-2'>
+                      <div 
+                        key={index} 
+                        className='service-card p-5 bg-[#F7F6F3] border border-[#EAEAEA] services-shadow rounded-md space-y-2'
+                      >
                           {service.icon}
                           <h4 className='text-xl text-[#2B2B2B] font-semibold mt-4 md:text-2xl leading-[40px]'>{service.title}</h4>
                           <p className='text-[#65421E]'>{service.description}</p>
@@ -128,21 +220,44 @@ const page = () => {
                                 </div>
                               ))}
                           </div>
-                    </div>
+                      </div>
                     ))}
                 </div>
             </HeroWrapper>
         </div>
 
+        {/* Success Stories */}
         <div className='partner'>
             <div className='text-[#2B2B2B] px-5 sm:px-0 text-center pt-15 mb-5'>
-              <h4 className='font-medium text-3xl md:text-4xl mb-3'>Success Stories</h4>
-              <p className='text-lg max-w-xl mx-auto'>See how we&apos;ve helped brands achieve their sustainability goals while maintaining quality and efficiency.</p>
+              <motion.h4
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+                viewport={{ once: true }}
+                className='font-medium text-3xl md:text-4xl mb-3'
+              >
+                Success Stories
+              </motion.h4>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className='text-lg max-w-xl mx-auto'
+              >
+                See how we&apos;ve helped brands achieve their sustainability goals while maintaining quality and efficiency.
+              </motion.p>
             </div>
             <HeroWrapper>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div 
+                ref={storiesRef}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              >
                   {success_stories.map((ss,index) => (
-                    <div key={index} className='p-5 bg-[#F7F6F3] border border-[#EAEAEA] services-shadow rounded-md space-y-2'>
+                    <div 
+                      key={index}
+                      className='story-card p-5 bg-[#F7F6F3] border border-[#EAEAEA] services-shadow rounded-md space-y-2'
+                    >
                         <Button
                           value={'outline'}
                           size={'sm'}
@@ -163,41 +278,88 @@ const page = () => {
             </HeroWrapper>
         </div>
 
+        {/* Partnership Process */}
         <div className='bg-[#FAF7EC] pb-15'>
             <HeroWrapper>
               <div className='text-[#2B2B2B] px-5 sm:px-0 text-center pt-15 mb-5'>
-                <h4 className='font-medium text-3xl md:text-4xl mb-3'>Partnership Process</h4>
-                <p className='text-lg max-w-4xl mx-auto'>From initial consultation to product delivery, we make partnering with us simple and transparent.</p>
+                <motion.h4
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7 }}
+                  viewport={{ once: true }}
+                  className='font-medium text-3xl md:text-4xl mb-3'
+                >
+                  Partnership Process
+                </motion.h4>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true }}
+                  className='text-lg max-w-4xl mx-auto'
+                >
+                  From initial consultation to product delivery, we make partnering with us simple and transparent.
+                </motion.p>
               </div>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div 
+                ref={partnersRef}
+                className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+              >
                   {partnerships.map((p, index) => (
-                    <div key={index} className='text-center space-y-4'>
+                    <div 
+                      key={index}
+                      className='partner-step text-center space-y-4'
+                    >
                       <h4 className='font-semibold text-3xl md:text-4xl text-[#CE9F41]'>0{index + 1}</h4>
                       <h2 className='text-xl leading-[28px] font-medium'>{p.title}</h2>
-                      <p className='text-[#7E7167] '>{p.desc}</p>
+                      <p className='text-[#7E7167]'>{p.desc}</p>
                     </div>
                   ))}
               </div>
             </HeroWrapper>
         </div>
 
+        {/* Final CTA */}
         <HeroWrapper>
-              <div className='text-[#2B2B2B] px-5 sm:px-0 text-center pt-15 mb-5'>
-                <h4 className='font-medium text-3xl md:text-4xl mb-3'>Ready to Start Your Partnership?</h4>
-                <p className='text-lg max-w-xl mb-5 mx-auto'>Let&apos;s create something amazing together. Contact us to discuss your project and discover how we can bring your vision to life ethically.</p>
-                <div className='flex justify-center gap-5'>
-                    <button className="bg-[#CE9F41] text-white font-medium p-[10px] rounded-md hover:bg-[#c99a50] transition cursor-pointer">
-                    Contact Our Team
-                    </button>
-                    <button className="bg-[#FFFFFF] text-[#2B2B2B] font-medium p-[10px] rounded-md transition cursor-pointer" style={{boxShadow: "0px 0px 4px 0px #00000040"
-                    }}>
-                    Schedule Consultation
-                    </button>
-                </div>
-              </div>
+          <motion.div
+            className='text-[#2B2B2B] px-5 sm:px-0 text-center pt-15 mb-5'
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <h4 className='font-medium text-3xl md:text-4xl mb-3'>Ready to Start Your Partnership?</h4>
+            <p className='text-lg max-w-xl mb-5 mx-auto'>
+              Let&apos;s create something amazing together. Contact us to discuss your project and discover how we can bring your vision to life ethically.
+            </p>
+            <motion.div
+              className='flex justify-center gap-5'
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={{
+                hidden: {},
+                show: { transition: { staggerChildren: 0.15 } }
+              }}
+            >
+              <motion.button
+                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                className="bg-[#CE9F41] text-white font-medium p-[10px] rounded-md hover:bg-[#c99a50] transition cursor-pointer"
+              >
+                Contact Our Team
+              </motion.button>
+              <motion.button
+                variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}
+                className="bg-[#FFFFFF] text-[#2B2B2B] font-medium p-[10px] rounded-md transition cursor-pointer"
+                style={{boxShadow: "0px 0px 4px 0px #00000040"}}
+              >
+                Schedule Consultation
+              </motion.button>
+            </motion.div>
+          </motion.div>
         </HeroWrapper>
     </>
   )
 }
 
-export default page
+export default Page

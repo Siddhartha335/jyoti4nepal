@@ -1,16 +1,15 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import HeroWrapper from "../HeroWrapper"
-import { ExternalLink } from "lucide-react"
-import { Button } from "../ui/button"
+import { useState } from "react";
+import Image from "next/image";
+import HeroWrapper from "../HeroWrapper";
+import { ExternalLink } from "lucide-react";
+import { Button } from "../ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Stories = () => {
-  const limit = 100
-
-  // store per-card expanded states
-  const [expanded, setExpanded] = useState<boolean[]>([])
+  const limit = 100;
+  const [expanded, setExpanded] = useState<boolean[]>([]);
 
   const stories = [
     {
@@ -37,93 +36,153 @@ const Stories = () => {
       readtime: 6,
       date: "Aug 2025",
     },
-  ]
+  ];
 
   const toggleExpand = (index: number) => {
     setExpanded((prev) => {
-      const copy = [...prev]
-      copy[index] = !copy[index] 
-      return copy
-    })
-  }
+      const copy = [...prev];
+      copy[index] = !copy[index];
+      return copy;
+    });
+  };
 
   return (
     <div className="mt-12">
+      {/* Section title */}
       <div className="text-center max-w-4xl mx-auto space-y-2 p-5 md:p-0">
-        <h4 className="text-2xl lg:text-4xl text-[#2B2B2B] font-semibold leading-[48px]">
+        <motion.h4
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="text-2xl lg:text-4xl text-[#2B2B2B] font-semibold leading-[48px]"
+        >
           Stories of change
-        </h4>
-        <p className="text-lg leading-[28px]">
+        </motion.h4>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-lg leading-[28px]"
+        >
           Every stitch tells a story. Discover the journey of crafting in Nepal,
           the impact of your support, and the beauty of creating change
           together.
-        </p>
+        </motion.p>
       </div>
+
       <HeroWrapper>
+        {/* Story grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
           {stories.map((story, index) => (
-            <div key={index} className="stories rounded-xl">
-              <div className="relative h-[290px] w-full">
+            <motion.div
+              key={index}
+              className="stories rounded-xl overflow-hidden bg-white shadow"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true, amount: 0.2 }}
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0px 8px 24px rgba(0,0,0,0.12)",
+              }}
+            >
+              {/* Image */}
+              <motion.div
+                className="relative h-[290px] w-full overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.6 }}
+              >
                 <Image
                   src={story.image}
-                  alt="Products"
+                  alt="Story"
                   fill
                   className="object-cover object-top rounded-t-xl"
                 />
-              </div>
+              </motion.div>
+
+              {/* Text content */}
               <div className="p-5">
                 <div className="w-full flex justify-between mb-3">
                   <p className="font-semibold text-lg leading-[100%] mb-2 text-[#5F3824] w-[75%]">
                     {story.title}
                   </p>
-                  <p className="text-[#B3B3B3] text-sm float-right">
-                    {story.readtime} min read
-                  </p>
+                  <p className="text-[#B3B3B3] text-sm">{story.readtime} min read</p>
                 </div>
-                {expanded[index] ? (
-                  <p className="text-[#595959] text-sm mb-5">
-                    {story.description}{" "}
-                    <span
-                      className="text-[#FF6F61] cursor-pointer"
-                      onClick={() => toggleExpand(index)}
+
+                <AnimatePresence initial={false}>
+                  {expanded[index] ? (
+                    <motion.p
+                      key="expanded"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="text-[#595959] text-sm mb-5"
                     >
-                      Less
-                    </span>
-                  </p>
-                ) : (
-                  <p className="text-[#595959] text-sm mb-5">
-                    {story.description.slice(0, limit)}
-                    {story.description.length > limit && "..."}{" "}
-                    <span
-                      className="text-[#FF6F61] cursor-pointer"
-                      onClick={() => toggleExpand(index)}
+                      {story.description}{" "}
+                      <span
+                        className="text-[#FF6F61] cursor-pointer"
+                        onClick={() => toggleExpand(index)}
+                      >
+                        Less
+                      </span>
+                    </motion.p>
+                  ) : (
+                    <motion.p
+                      key="collapsed"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="text-[#595959] text-sm mb-5"
                     >
-                      More
-                    </span>
-                  </p>
-                )}
+                      {story.description.slice(0, limit)}
+                      {story.description.length > limit && "..."}{" "}
+                      <span
+                        className="text-[#FF6F61] cursor-pointer"
+                        onClick={() => toggleExpand(index)}
+                      >
+                        More
+                      </span>
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+
                 <div className="flex items-center justify-between">
                   <p className="text-[#595959] text-sm">{story.date}</p>
-                  <p className="text-sm flex items-center gap-1 cursor-pointer">
+                  <motion.p
+                    whileHover={{ x: 3 }}
+                    className="text-sm flex items-center gap-1 cursor-pointer"
+                  >
                     Read More <ExternalLink size={14} className="inline-block" />
-                  </p>
+                  </motion.p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-        <div className="flex justify-center">
-            <Button 
-                variant="outline"
-                size="lg"
-                className="mt-8 mb-10 rounded-[8px] px-6 py-4 border border-[#D5D5D5] bg-[#CE9F41] text-white"
-            >
-                Read More
-            </Button>
-        </div>
+
+        {/* Read More button */}
+        <motion.div
+          className="flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          <Button
+            variant="outline"
+            size="lg"
+            className="mt-8 mb-10 rounded-[8px] px-6 py-4 border border-[#D5D5D5] bg-[#CE9F41] text-white"
+          >
+            Read More
+          </Button>
+        </motion.div>
       </HeroWrapper>
     </div>
-  )
-}
+  );
+};
 
-export default Stories
+export default Stories;
